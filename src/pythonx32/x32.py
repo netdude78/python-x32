@@ -1,3 +1,4 @@
+#!/usr/bin/python
 """
 
 This software is licensed under the Modified BSD License:
@@ -32,8 +33,8 @@ import OSC
 import time
 import threading
 import Queue
-from collections import namedtuple
-from pythonx32.x32parameters import get_settings
+from collections import namedtuple, OrderedDict
+from x32parameters import get_settings
 import json
 import sys
 import math
@@ -61,7 +62,7 @@ class TimeoutError(StandardError):
     pass
 
 class BehringerX32(object):
-    def __init__(self, x32_address, server_port, verbose, timeout=10):
+    def __init__(self, x32_address, server_port, verbose, timeout=1):
         self._verbose = verbose
         self._timeout = timeout
         self._server = OSC.OSCServer(("", server_port))
@@ -81,8 +82,18 @@ class BehringerX32(object):
                 self._input_queue.get_nowait()
             except Queue.Empty:
                 break            
-        self._client.send(OSC.OSCMessage(path))
-        return self._input_queue.get(timeout=self._timeout).data
+        try:
+            self._client.send(OSC.OSCMessage(path))
+            return self._input_queue.get(timeout=self._timeout).data
+        except:
+            while True:
+                try:
+                    self._input_queue.get_nowait()
+                except Queue.Empty:
+                    break            
+            self._client.send(OSC.OSCMessage(path))
+            return self._input_queue.get(timeout=self._timeout).data            
+
 
     def set_value(self, path, value, readback=True):
         self._client.send(OSC.OSCMessage(path, value))
@@ -97,17 +108,27 @@ class BehringerX32(object):
                 if read_back_value == value:
                     break
                 if time.time() - start_time > self._timeout:
-                    raise TimeoutError("Timeout while readback of path %s, value=%s, read_back_value=%s" % (path, value, read_back_value)) 
+                    print("Timeout while readback of path %s, value=%s, read_back_value=%s" % (path, value, read_back_value)) 
+                    break
                 time.sleep(0.0001)
                 
     def get_state(self):        
-        state = {}
+        state = OrderedDict()
         for index, path in enumerate(setting_paths):
-            if self._verbose and index % 100 == 0:
-                print "Reading parameter %d of %d from x32" % (index, len(setting_paths))
-            value = self.get_value(path)
-            assert len(value) == 1
-            state[path] = value[0]
+            if self._verbose:
+                print "Reading parameter %d of %d (%s) from x32" % (index, len(setting_paths), path)
+            try:
+                value = self.get_value(path)
+                if self._verbose:
+                    print "value returned: %s" % value
+                if value:            
+                    assert len(value) == 1
+                    state[path] = value[0]
+                    if self._verbose:
+                        print "adding state: %s : %s" % (path, value[0])
+            except:
+                print "caught error trying to retrieve key: %s" % path
+
         return state
     
     def set_state(self, state):
@@ -130,10 +151,10 @@ class BehringerX32(object):
     def save_state_to_file(self, outputfile, state):
         my_dict = {"x32_state": state,
                    }
-        json.dump(my_dict, outputfile, sort_keys=True, indent=4)
+        json.dump(my_dict, outputfile, indent=4)
 
     def read_state_from_file(self, inputfile):
-        my_dict = json.load(inputfile)
+        my_dict = OrderedDict(json.load(inputfile))
         return my_dict["x32_state"]
 
 usage = """This is a utility to load or save the settings of a Behringer X32 mixing desk. All document settings are loaded/stored, and some undocumented.

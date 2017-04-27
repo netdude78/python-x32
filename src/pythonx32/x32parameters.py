@@ -1,3 +1,4 @@
+#!/usr/bin/python
 import itertools
 settings_from_doc = """--------- config data ---------
 /config/chlink/1-2 enum {OFF,ON}
@@ -89,7 +90,7 @@ settings_from_doc = """--------- config data ---------
 16,A17-24,A25-32,A33-40,A41-48,B1-8,B9-
 16,B17-24,B25-32,B33-40,B41-48,CARD1-
 8,CARD9-16,CARD17-24,CARD25-32}
-/config/routing/IN/AUX1-4 enum {AUX1-4,AN1-4,A1-4,B1-4,CARD1-
+/config/routing/IN/AUX enum {AUX1-4,AN1-4,A1-4,B1-4,CARD1-
 4}
 /config/routing/AES50A/1-8 enum {AN1-8,AN9-16,AN17-24,AN25-32,A1-8,A9-
 16,A17-24,A25-32,A33-40,A41-48,B1-8,B9-
@@ -512,7 +513,6 @@ linf [0.300,500.000,0.100] ms
 /-prefs/selfollowsbank [1]
 /-prefs/scene_advance [1]
 /-prefs/safe_masterlevels [0]
-/-prefs/stagelock [1]
 /-prefs/ledbright [0.9444444179534912]
 /-prefs/bright [0.7222222089767456]
 /-prefs/lcdcont [0.47999998927116394]
