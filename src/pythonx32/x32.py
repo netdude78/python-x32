@@ -168,7 +168,7 @@ if __name__ == '__main__':
     import argparse
 
     parser = argparse.ArgumentParser(description=usage)
-    parser.add_argument('--address', default="192.168.208.99",                      
+    parser.add_argument('--address', default="192.168.0.51",                      
                         help='name/ip-address of Behringer X32 mixing desk')
     parser.add_argument('--filename', default = None, required=True,                         
                         help='Filename')

@@ -1,6 +1,6 @@
 #!/usr/bin/python
 import itertools
-settings_from_doc = """--------- config data ---------
+def chanlink(): return """--------- config data ---------
 /config/chlink/1-2 enum {OFF,ON}
 /config/chlink/3-4 enum {OFF,ON}
 /config/chlink/5-6 enum {OFF,ON}
@@ -24,7 +24,8 @@ settings_from_doc = """--------- config data ---------
 /config/fxlink/1-2 enum {OFF,ON}
 /config/fxlink/3-4 enum {OFF,ON}
 /config/fxlink/5-6 enum {OFF,ON}
-/config/fxlink/7-8 enum {OFF,ON}/config/buslink/1-2 enum {OFF,ON}
+/config/fxlink/7-8 enum {OFF,ON}
+/config/buslink/1-2 enum {OFF,ON}
 /config/buslink/3-4 enum {OFF,ON}
 /config/buslink/5-6 enum {OFF,ON}
 /config/buslink/7-8 enum {OFF,ON}
@@ -35,6 +36,8 @@ settings_from_doc = """--------- config data ---------
 /config/mtxlink/1-2 enum {OFF,ON}
 /config/mtxlink/3-4 enum {OFF,ON}
 /config/mtxlink/5-6 enum {OFF,ON}
+"""
+def globals(): return """--------- config data ---------
 /config/mute/[1..6] enum {OFF,ON}
 /config/linkcfg/hadly enum {OFF,ON}
 /config/linkcfg/eq enum {OFF,ON}
@@ -73,107 +76,110 @@ settings_from_doc = """--------- config data ---------
 /config/osc/f1 logf [20.000,20000,121] Hz/config/osc/f2 logf [20.000,20000,121] Hz
 /config/osc/fsel enum {F1,F2}
 /config/osc/type enum {SINE,PINK,WHITE}
-/config/osc/dest int [0,25]
-/config/routing/IN/1-8 enum {AN1-8,AN9-16,AN17-24,AN25-32,A1-8,A9-
-16,A17-24,A25-32,A33-40,A41-48,B1-8,B9-
-16,B17-24,B25-32,B33-40,B41-48,CARD1-
-8,CARD9-16,CARD17-24,CARD25-32}
-/config/routing/IN/9-16 enum {AN1-8,AN9-16,AN17-24,AN25-32,A1-8,A9-
-16,A17-24,A25-32,A33-40,A41-48,B1-8,B9-
-16,B17-24,B25-32,B33-40,B41-48,CARD1-
-8,CARD9-16,CARD17-24,CARD25-32}
-/config/routing/IN/17-24 enum {AN1-8,AN9-16,AN17-24,AN25-32,A1-8,A9-
-16,A17-24,A25-32,A33-40,A41-48,B1-8,B9-
-16,B17-24,B25-32,B33-40,B41-48,CARD1-
-8,CARD9-16,CARD17-24,CARD25-32}
-/config/routing/IN/25-32 enum {AN1-8,AN9-16,AN17-24,AN25-32,A1-8,A9-
-16,A17-24,A25-32,A33-40,A41-48,B1-8,B9-
-16,B17-24,B25-32,B33-40,B41-48,CARD1-
-8,CARD9-16,CARD17-24,CARD25-32}
-/config/routing/IN/AUX enum {AUX1-4,AN1-4,A1-4,B1-4,CARD1-
-4}
-/config/routing/AES50A/1-8 enum {AN1-8,AN9-16,AN17-24,AN25-32,A1-8,A9-
-16,A17-24,A25-32,A33-40,A41-48,B1-8,B9-
-16,B17-24,B25-32,B33-40,B41-48,CARD1-
-8,CARD9-16,CARD17-24,CARD25-32,OUT1-
-8,OUT9-16,P161-8,P169-16,AUX/CR}
-/config/routing/AES50A/9-16 enum {AN1-8,AN9-16,AN17-24,AN25-32,A1-8,A9-
-16,A17-24,A25-32,A33-40,A41-48,B1-8,B9-
-16,B17-24,B25-32,B33-40,B41-48,CARD1-
-8,CARD9-16,CARD17-24,CARD25-32,OUT1-
-8,OUT9-16,P161-8,P169-16,AUX/CR}
-/config/routing/AES50A/17-24 enum {AN1-8,AN9-16,AN17-24,AN25-32,A1-8,A9-
-16,A17-24,A25-32,A33-40,A41-48,B1-8,B9-
-16,B17-24,B25-32,B33-40,B41-48,CARD1-
-8,CARD9-16,CARD17-24,CARD25-32,OUT1-
-8,OUT9-16,P161-8,P169-16,AUX/CR}
-/config/routing/AES50A/25-32 enum {AN1-8,AN9-16,AN17-24,AN25-32,A1-8,A9-
-16,A17-24,A25-32,A33-40,A41-48,B1-8,B9-
-16,B17-24,B25-32,B33-40,B41-48,CARD1-
-8,CARD9-16,CARD17-24,CARD25-32,OUT1-
-8,OUT9-16,P161-8,P169-16,AUX/CR}
-/config/routing/AES50A/33-40 enum {AN1-8,AN9-16,AN17-24,AN25-32,A1-8,A9-
-16,A17-24,A25-32,A33-40,A41-48,B1-8,B9-
-16,B17-24,B25-32,B33-40,B41-48,CARD1-
-8,CARD9-16,CARD17-24,CARD25-32,OUT1-
-8,OUT9-16,P161-8,P169-16,AUX/CR}/config/routing/AES50A/41-48 enum {AN1-8,AN9-16,AN17-24,AN25-32,A1-8,A9-
-16,A17-24,A25-32,A33-40,A41-48,B1-8,B9-
-16,B17-24,B25-32,B33-40,B41-48,CARD1-
-8,CARD9-16,CARD17-24,CARD25-32,OUT1-
-8,OUT9-16,P161-8,P169-16,AUX/CR}
-/config/routing/AES50B/1-8 enum {AN1-8,AN9-16,AN17-24,AN25-32,A1-8,A9-
-16,A17-24,A25-32,A33-40,A41-48,B1-8,B9-
-16,B17-24,B25-32,B33-40,B41-48,CARD1-
-8,CARD9-16,CARD17-24,CARD25-32,OUT1-
-8,OUT9-16,P161-8,P169-16,AUX/CR}
-/config/routing/AES50B/9-16 enum {AN1-8,AN9-16,AN17-24,AN25-32,A1-8,A9-
-16,A17-24,A25-32,A33-40,A41-48,B1-8,B9-
-16,B17-24,B25-32,B33-40,B41-48,CARD1-
-8,CARD9-16,CARD17-24,CARD25-32,OUT1-
-8,OUT9-16,P161-8,P169-16,AUX/CR}
-/config/routing/AES50B/17-24 enum {AN1-8,AN9-16,AN17-24,AN25-32,A1-8,A9-
-16,A17-24,A25-32,A33-40,A41-48,B1-8,B9-
-16,B17-24,B25-32,B33-40,B41-48,CARD1-
-8,CARD9-16,CARD17-24,CARD25-32,OUT1-
-8,OUT9-16,P161-8,P169-16,AUX/CR}
-/config/routing/AES50B/25-32 enum {AN1-8,AN9-16,AN17-24,AN25-32,A1-8,A9-
-16,A17-24,A25-32,A33-40,A41-48,B1-8,B9-
-16,B17-24,B25-32,B33-40,B41-48,CARD1-
-8,CARD9-16,CARD17-24,CARD25-32,OUT1-
-8,OUT9-16,P161-8,P169-16,AUX/CR}
-/config/routing/AES50B/33-40 enum {AN1-8,AN9-16,AN17-24,AN25-32,A1-8,A9-
-16,A17-24,A25-32,A33-40,A41-48,B1-8,B9-
-16,B17-24,B25-32,B33-40,B41-48,CARD1-
-8,CARD9-16,CARD17-24,CARD25-32,OUT1-
-8,OUT9-16,P161-8,P169-16,AUX/CR}
-/config/routing/AES50B/41-48 enum {AN1-8,AN9-16,AN17-24,AN25-32,A1-8,A9-
-16,A17-24,A25-32,A33-40,A41-48,B1-8,B9-
-16,B17-24,B25-32,B33-40,B41-48,CARD1-
-8,CARD9-16,CARD17-24,CARD25-32,OUT1-
-8,OUT9-16,P161-8,P169-16,AUX/CR}
-/config/routing/CARD/1-8 enum {AN1-8,AN9-16,AN17-24,AN25-32,A1-8,A9-
-16,A17-24,A25-32,A33-40,A41-48,B1-8,B9-
-16,B17-24,B25-32,B33-40,B41-48,CARD1-
-8,CARD9-16,CARD17-24,CARD25-32,OUT1-
-8,OUT9-16,P161-8,P169-16,AUX/CR}
-/config/routing/CARD/9-16 enum {AN1-8,AN9-16,AN17-24,AN25-32,A1-8,A9-
-16,A17-24,A25-32,A33-40,A41-48,B1-8,B9-
-16,B17-24,B25-32,B33-40,B41-48,CARD1-
-8,CARD9-16,CARD17-24,CARD25-32,OUT1-
-8,OUT9-16,P161-8,P169-16,AUX/CR}/config/routing/CARD/17-24 enum {AN1-8,AN9-16,AN17-24,AN25-32,A1-8,A9-
-16,A17-24,A25-32,A33-40,A41-48,B1-8,B9-
-16,B17-24,B25-32,B33-40,B41-48,CARD1-
-8,CARD9-16,CARD17-24,CARD25-32,OUT1-
-8,OUT9-16,P161-8,P169-16,AUX/CR}
-/config/routing/CARD/25-32 enum {AN1-8,AN9-16,AN17-24,AN25-32,A1-8,A9-
-16,A17-24,A25-32,A33-40,A41-48,B1-8,B9-
-16,B17-24,B25-32,B33-40,B41-48,CARD1-
-8,CARD9-16,CARD17-24,CARD25-32,OUT1-
-8,OUT9-16,P161-8,P169-16,AUX/CR}
+/config/osc/dest enum {MixBus1, MixBus2, MixBus3, MixBus4, MixBus5, MixBus6, MixBus7, MixBus8, MixBus9, MixBus10, MixBus11, MixBus12, MixBus13, MixBus14, MixBus15, MixBus16, Main L, Main R, M/C, Matrix1, Matrix2, Matrix3, Matrix4, Matrix5, Matrix6}
 /config/tape/gainL linf [-6.000,24.000,0.500] dB
 /config/tape/gainR linf [-6.000,24.000,0.500] dB
 /config/tape/autoplay enum {OFF,ON}
+/config/amixenable/X enum {OFF, ON}
+/config/amixenable/Y enum {OFF, ON}
+"""
+def routing(): return """--------- config data ---------
+/config/routing/IN/1-8 enum {AN1-8,AN9-16,AN17-24,AN25-32,A1-8,A9-16,A17-24,A25-32,A33-40,A41-48,B1-8,B9-16,B17-24,B25-32,B33-40,B41-48,CARD1-8,CARD9-16,CARD17-24,CARD25-32}
+/config/routing/IN/9-16 enum {AN1-8,AN9-16,AN17-24,AN25-32,A1-8,A9-16,A17-24,A25-32,A33-40,A41-48,B1-8,B9-16,B17-24,B25-32,B33-40,B41-48,CARD1-8,CARD9-16,CARD17-24,CARD25-32}
+/config/routing/IN/17-24 enum {AN1-8,AN9-16,AN17-24,AN25-32,A1-8,A9-16,A17-24,A25-32,A33-40,A41-48,B1-8,B9-16,B17-24,B25-32,B33-40,B41-48,CARD1-8,CARD9-16,CARD17-24,CARD25-32}
+/config/routing/IN/25-32 enum {AN1-8,AN9-16,AN17-24,AN25-32,A1-8,A9-16,A17-24,A25-32,A33-40,A41-48,B1-8,B9-16,B17-24,B25-32,B33-40,B41-48,CARD1-8,CARD9-16,CARD17-24,CARD25-32}
+/config/routing/IN/AUX enum {AUX1-4,AN1-4,A1-4,B1-4,CARD1-4}
+/config/routing/AES50A/1-8 enum {AN1-8,AN9-16,AN17-24,AN25-32,A1-8,A9-16,A17-24,A25-32,A33-40,A41-48,B1-8,B9-16,B17-24,B25-32,B33-40,B41-48,CARD1-8,CARD9-16,CARD17-24,CARD25-32,OUT1-8,OUT9-16,P161-8,P169-16,AUX/CR}
+/config/routing/AES50A/9-16 enum {AN1-8,AN9-16,AN17-24,AN25-32,A1-8,A9-16,A17-24,A25-32,A33-40,A41-48,B1-8,B9-16,B17-24,B25-32,B33-40,B41-48,CARD1-8,CARD9-16,CARD17-24,CARD25-32,OUT1-8,OUT9-16,P161-8,P169-16,AUX/CR}
+/config/routing/AES50A/17-24 enum {AN1-8,AN9-16,AN17-24,AN25-32,A1-8,A9-16,A17-24,A25-32,A33-40,A41-48,B1-8,B9-16,B17-24,B25-32,B33-40,B41-48,CARD1-8,CARD9-16,CARD17-24,CARD25-32,OUT1-8,OUT9-16,P161-8,P169-16,AUX/CR}
+/config/routing/AES50A/25-32 enum {AN1-8,AN9-16,AN17-24,AN25-32,A1-8,A9-16,A17-24,A25-32,A33-40,A41-48,B1-8,B9-16,B17-24,B25-32,B33-40,B41-48,CARD1-8,CARD9-16,CARD17-24,CARD25-32,OUT1-8,OUT9-16,P161-8,P169-16,AUX/CR}
+/config/routing/AES50A/33-40 enum {AN1-8,AN9-16,AN17-24,AN25-32,A1-8,A9-16,A17-24,A25-32,A33-40,A41-48,B1-8,B9-16,B17-24,B25-32,B33-40,B41-48,CARD1-8,CARD9-16,CARD17-24,CARD25-32,OUT1-8,OUT9-16,P161-8,P169-16,AUX/CR}
+/config/routing/AES50A/41-48 enum {AN1-8,AN9-16,AN17-24,AN25-32,A1-8,A9-16,A17-24,A25-32,A33-40,A41-48,B1-8,B9-16,B17-24,B25-32,B33-40,B41-48,CARD1-8,CARD9-16,CARD17-24,CARD25-32,OUT1-8,OUT9-16,P161-8,P169-16,AUX/CR}
+/config/routing/AES50B/1-8 enum {AN1-8,AN9-16,AN17-24,AN25-32,A1-8,A9-16,A17-24,A25-32,A33-40,A41-48,B1-8,B9-16,B17-24,B25-32,B33-40,B41-48,CARD1-8,CARD9-16,CARD17-24,CARD25-32,OUT1-8,OUT9-16,P161-8,P169-16,AUX/CR}
+/config/routing/AES50B/9-16 enum {AN1-8,AN9-16,AN17-24,AN25-32,A1-8,A9-16,A17-24,A25-32,A33-40,A41-48,B1-8,B9-16,B17-24,B25-32,B33-40,B41-48,CARD1-8,CARD9-16,CARD17-24,CARD25-32,OUT1-8,OUT9-16,P161-8,P169-16,AUX/CR}
+/config/routing/AES50B/17-24 enum {AN1-8,AN9-16,AN17-24,AN25-32,A1-8,A9-16,A17-24,A25-32,A33-40,A41-48,B1-8,B9-16,B17-24,B25-32,B33-40,B41-48,CARD1-8,CARD9-16,CARD17-24,CARD25-32,OUT1-8,OUT9-16,P161-8,P169-16,AUX/CR}
+/config/routing/AES50B/25-32 enum {AN1-8,AN9-16,AN17-24,AN25-32,A1-8,A9-16,A17-24,A25-32,A33-40,A41-48,B1-8,B9-16,B17-24,B25-32,B33-40,B41-48,CARD1-8,CARD9-16,CARD17-24,CARD25-32,OUT1-8,OUT9-16,P161-8,P169-16,AUX/CR}
+/config/routing/AES50B/33-40 enum {AN1-8,AN9-16,AN17-24,AN25-32,A1-8,A9-16,A17-24,A25-32,A33-40,A41-48,B1-8,B9-16,B17-24,B25-32,B33-40,B41-48,CARD1-8,CARD9-16,CARD17-24,CARD25-32,OUT1-8,OUT9-16,P161-8,P169-16,AUX/CR}
+/config/routing/AES50B/41-48 enum {AN1-8,AN9-16,AN17-24,AN25-32,A1-8,A9-16,A17-24,A25-32,A33-40,A41-48,B1-8,B9-16,B17-24,B25-32,B33-40,B41-48,CARD1-8,CARD9-16,CARD17-24,CARD25-32,OUT1-8,OUT9-16,P161-8,P169-16,AUX/CR}
+/config/routing/CARD/1-8 enum {AN1-8,AN9-16,AN17-24,AN25-32,A1-8,A9-16,A17-24,A25-32,A33-40,A41-48,B1-8,B9-16,B17-24,B25-32,B33-40,B41-48,CARD1-8,CARD9-16,CARD17-24,CARD25-32,OUT1-8,OUT9-16,P161-8,P169-16,AUX/CR}
+/config/routing/CARD/9-16 enum {AN1-8,AN9-16,AN17-24,AN25-32,A1-8,A9-16,A17-24,A25-32,A33-40,A41-48,B1-8,B9-16,B17-24,B25-32,B33-40,B41-48,CARD1-8,CARD9-16,CARD17-24,CARD25-32,OUT1-8,OUT9-16,P161-8,P169-16,AUX/CR}
+/config/routing/CARD/17-24 enum {AN1-8,AN9-16,AN17-24,AN25-32,A1-8,A9-16,A17-24,A25-32,A33-40,A41-48,B1-8,B9-16,B17-24,B25-32,B33-40,B41-48,CARD1-8,CARD9-16,CARD17-24,CARD25-32,OUT1-8,OUT9-16,P161-8,P169-16,AUX/CR}
+/config/routing/CARD/25-32 enum {AN1-8,AN9-16,AN17-24,AN25-32,A1-8,A9-16,A17-24,A25-32,A33-40,A41-48,B1-8,B9-16,B17-24,B25-32,B33-40,B41-48,CARD1-8,CARD9-16,CARD17-24,CARD25-32,OUT1-8,OUT9-16,P161-8,P169-16,AUX/CR}
+/config/routing/PLAY/1-8 enum {AN1-8,AN9-16,AN17-24,AN25-32,A1-8,A9-16,A17-24,A25-32,A33-40,A41-48,B1-8,B9-16,B17-24,B25-32,B33-40,B41-48,CARD1-8,CARD9-16,CARD17-24,CARD25-32,OUT1-8,OUT9-16,P161-8,P169-16,AUX/CR}
+/config/routing/PLAY/9-16 enum {AN1-8,AN9-16,AN17-24,AN25-32,A1-8,A9-16,A17-24,A25-32,A33-40,A41-48,B1-8,B9-16,B17-24,B25-32,B33-40,B41-48,CARD1-8,CARD9-16,CARD17-24,CARD25-32,OUT1-8,OUT9-16,P161-8,P169-16,AUX/CR}
+/config/routing/PLAY/17-24 enum {AN1-8,AN9-16,AN17-24,AN25-32,A1-8,A9-16,A17-24,A25-32,A33-40,A41-48,B1-8,B9-16,B17-24,B25-32,B33-40,B41-48,CARD1-8,CARD9-16,CARD17-24,CARD25-32,OUT1-8,OUT9-16,P161-8,P169-16,AUX/CR}
+/config/routing/PLAY/25-32 enum {AN1-8,AN9-16,AN17-24,AN25-32,A1-8,A9-16,A17-24,A25-32,A33-40,A41-48,B1-8,B9-16,B17-24,B25-32,B33-40,B41-48,CARD1-8,CARD9-16,CARD17-24,CARD25-32,OUT1-8,OUT9-16,P161-8,P169-16,AUX/CR}
+/config/routing/PLAY/AUX enum {AN1-8,AN9-16,AN17-24,AN25-32,A1-8,A9-16,A17-24,A25-32,A33-40,A41-48,B1-8,B9-16,B17-24,B25-32,B33-40,B41-48,CARD1-8,CARD9-16,CARD17-24,CARD25-32,OUT1-8,OUT9-16,P161-8,P169-16,AUX/CR}
+/config/routing/PLAY/AUX enum {AUX1-4,AN1-4,A1-4,B1-4,CARD1-4}
+/config/routing/routswitch enum {Record, Play}
+--------- outputs main [01..16] ---------
+/outputs/main/[01..16]/src int [0,76]
+/outputs/main/[01..16]/pos enum {IN/LC, IN/LC+M, <-EQ, <-EQ+M, EQ->, EQ_>+M, PRE, PRE+M, POST}
+/outputs/main/[01..16]/delay/on enum {OFF,ON}
+/outputs/main/[01..16]/delay/time linf [0.300,500.000,0.100] ms
+--------- outputs aux [01..06] ---------
+/outputs/aux/[01..06]/src int [0,76]
+/outputs/aux/[01..06]/pos enum {IN/LC, IN/LC+M, <-EQ, <-EQ+M, EQ->, EQ_>+M, PRE, PRE+M, POST}
+--------- outputs P16 [01..16] ---------
+/outputs/p16/[01..16]/src int [0,76]
+/outputs/p16/[01..16]/pos enum {IN/LC, IN/LC+M, <-EQ, <-EQ+M, EQ->, EQ_>+M, PRE, PRE+M, POST}
+--------- outputs AES [01..02] ---------
+/outputs/aes/[01..02]/src int [0,76]
+/outputs/aes/[01..02]/pos enum {IN/LC, IN/LC+M, <-EQ, <-EQ+M, EQ->, EQ_>+M, PRE, PRE+M, POST}
+--------- outputs REC [01..02] ---------
+/outputs/rec/[01..02]/src int [0,76]
+/outputs/rec/[01..02]/pos enum {IN/LC, IN/LC+M, <-EQ, <-EQ+M, EQ->, EQ_>+M, PRE, PRE+M, POST}
+--------- headamps [000..127] ---------
+/headamp/[000..127]/gain linf [-12.000,60.000,0.500] dB
+/headamp/[000..127]/phantom enum {OFF,ON}
+000..031: local XLR inputs
+032..079: AES50 port A connected devices
+080..127: AES50 port B connected devices
+"""
+def userbuttons(): return """--------- config data ---------
+/config/userctrl/A/color enum {OFF, RD, GN, YE, BL, MG, CY, WH, OFFi, RDi, GNi, YEi, BLi, MGi, CYi, WHi}
+/config/userctrl/A/enc/1 string [32]
+/config/userctrl/A/enc/2 string [32]
+/config/userctrl/A/enc/3 string [32]
+/config/userctrl/A/enc/4 string [32]
+/config/userctrl/A/btn/5 string [32]
+/config/userctrl/A/btn/6 string [32]
+/config/userctrl/A/btn/7 string [32]
+/config/userctrl/A/btn/8 string [32]
+/config/userctrl/A/btn/9 string [32]
+/config/userctrl/A/btn/10 string [32]
+/config/userctrl/A/btn/11 string [32]
+/config/userctrl/A/btn/12 string [32]
+/config/userctrl/B/color enum {OFF, RD, GN, YE, BL, MG, CY, WH,OFFi, RDi, GNi, YEi, BLi, MGi, CYi, WHi}
+/config/userctrl/B/enc/1 string [32]
+/config/userctrl/B/enc/2 string [32]
+/config/userctrl/B/enc/3 string [32]
+/config/userctrl/B/enc/4 string [32]
+/config/userctrl/B/btn/5 string [32]
+/config/userctrl/B/btn/6 string [32]
+/config/userctrl/B/btn/7 string [32]
+/config/userctrl/B/btn/8 string [32]
+/config/userctrl/B/btn/9 string [32]
+/config/userctrl/B/btn/10 string [32]
+/config/userctrl/B/btn/11 string [32]
+/config/userctrl/B/btn/12 string [32]
+/config/userctrl/C/color enum {OFF, RD, GN, YE, BL, MG, CY, WH,OFFi, RDi, GNi, YEi, BLi, MGi, CYi, WHi}
+/config/userctrl/C/enc/1 string [32]
+/config/userctrl/C/enc/2 string [32]
+/config/userctrl/C/enc/3 string [32]
+/config/userctrl/C/enc/4 string [32]
+/config/userctrl/C/btn/5 string [32]
+/config/userctrl/C/btn/6 string [32]
+/config/userctrl/C/btn/7 string [32]
+/config/userctrl/C/btn/8 string [32]
+/config/userctrl/C/btn/9 string [32]
+/config/userctrl/C/btn/10 string [32]
+/config/userctrl/C/btn/11 string [32]
+/config/userctrl/C/btn/12 string [32]
+"""
+def channels(): return """--------- config data ---------
 --------- channel [01..32] (channel id 0..31) ---------
+/ch/[01..08]/automix/group enum [OFF, X, Y]
 /ch/[01..32]/config/name string [12]
 /ch/[01..32]/config/icon int [1,74]
 /ch/[01..32]/config/color enum {OFF,RD,GN,YE,BL,MG,CY,WH}
@@ -213,9 +219,7 @@ settings_from_doc = """--------- config data ---------
 /ch/[01..32]/dyn/filter/f logf [20.000,20000,201] Hz
 /ch/[01..32]/insert/on enum {OFF,ON}
 /ch/[01..32]/insert/pos enum {PRE,POST}
-/ch/[01..32]/insert/sel enum {OFF,FX1L,FX1R,FX2L,FX2R,FX3L,FX3R,FX4L,
-FX4R,FX5L,FX5R,FX6L,FX6R,FX7L,FX7R,FX8L,
-FX8R,AUX1,AUX2,AUX3,AUX4,AUX5,AUX6}
+/ch/[01..32]/insert/sel enum {OFF,FX1L,FX1R,FX2L,FX2R,FX3L,FX3R,FX4L,FX4R,FX5L,FX5R,FX6L,FX6R,FX7L,FX7R,FX8L,FX8R,AUX1,AUX2,AUX3,AUX4,AUX5,AUX6}
 /ch/[01..32]/eq/on enum {OFF,ON}
 /ch/[01..32]/eq/[1..4]/type enum {LCut,LShv,PEQ,VEQ,HShv,HCut}
 /ch/[01..32]/eq/[1..4]/f logf [20.000,20000,201] Hz
@@ -230,23 +234,25 @@ FX8R,AUX1,AUX2,AUX3,AUX4,AUX5,AUX6}
 /ch/[01..32]/mix/[01..16]/on enum {OFF,ON}
 /ch/[01..32]/mix/[01..16]/level level [0.0...1.0 (+10 dB), 161] dB
 /ch/[01..32]/mix/01/pan linf [-100.000,100.000,2.000]
-/ch/[01..32]/mix/01/type enum {<-EQ,EQ->,PRE,POST,GRP}
+/ch/[01..32]/mix/01/type enum {INPUT,<-EQ,EQ->,PRE,POST,GRP}
 /ch/[01..32]/mix/03/pan linf [-100.000,100.000,2.000]
-/ch/[01..32]/mix/03/type enum {<-EQ,EQ->,PRE,POST,GRP}
+/ch/[01..32]/mix/03/type enum {INPUT,<-EQ,EQ->,PRE,POST,GRP}
 /ch/[01..32]/mix/05/pan linf [-100.000,100.000,2.000]
-/ch/[01..32]/mix/05/type enum {<-EQ,EQ->,PRE,POST,GRP}
+/ch/[01..32]/mix/05/type enum {INPUT,<-EQ,EQ->,PRE,POST,GRP}
 /ch/[01..32]/mix/07/pan linf [-100.000,100.000,2.000]
-/ch/[01..32]/mix/07/type enum {<-EQ,EQ->,PRE,POST,GRP}
+/ch/[01..32]/mix/07/type enum {INPUT,<-EQ,EQ->,PRE,POST,GRP}
 /ch/[01..32]/mix/09/pan linf [-100.000,100.000,2.000]
-/ch/[01..32]/mix/09/type enum {<-EQ,EQ->,PRE,POST,GRP}
+/ch/[01..32]/mix/09/type enum {INPUT,<-EQ,EQ->,PRE,POST,GRP}
 /ch/[01..32]/mix/11/pan linf [-100.000,100.000,2.000]
-/ch/[01..32]/mix/11/type enum {<-EQ,EQ->,PRE,POST,GRP}
+/ch/[01..32]/mix/11/type enum {INPUT,<-EQ,EQ->,PRE,POST,GRP}
 /ch/[01..32]/mix/13/pan linf [-100.000,100.000,2.000]
-/ch/[01..32]/mix/13/type enum {<-EQ,EQ->,PRE,POST,GRP}
+/ch/[01..32]/mix/13/type enum {INPUT,<-EQ,EQ->,PRE,POST,GRP}
 /ch/[01..32]/mix/15/pan linf [-100.000,100.000,2.000]
-/ch/[01..32]/mix/15/type enum {<-EQ,EQ->,PRE,POST,GRP}
+/ch/[01..32]/mix/15/type enum {INPUT,<-EQ,EQ->,PRE,POST,GRP}
 /ch/[01..32]/grp/dca int [0,255] (bitmap)
 /ch/[01..32]/grp/mute int [0,63] (bitmap)
+"""
+def auxes(): return  """--------- config data ---------
 --------- auxin [01..08] (channel id 32..39) ---------
 /auxin/[01..08]/config/name string [12]
 /auxin/[01..08]/config/icon int [1,74]
@@ -267,23 +273,25 @@ FX8R,AUX1,AUX2,AUX3,AUX4,AUX5,AUX6}
 /auxin/[01..08]/mix/[01..16]/on enum {OFF,ON}
 /auxin/[01..08]/mix/[01..16]/level level [0.0...1.0 (+10 dB), 161]
 /auxin/[01..08]/mix/01/pan linf [-100.000,100.000,2.000]
-/auxin/[01..08]/mix/01/type enum {<-EQ,EQ->,PRE,POST,GRP}
+/auxin/[01..08]/mix/01/type enum {INPUT,<-EQ,EQ->,PRE,POST,GRP}
 /auxin/[01..08]/mix/03/pan linf [-100.000,100.000,2.000]
-/auxin/[01..08]/mix/03/type enum {<-EQ,EQ->,PRE,POST,GRP}
+/auxin/[01..08]/mix/03/type enum {INPUT,<-EQ,EQ->,PRE,POST,GRP}
 /auxin/[01..08]/mix/05/pan linf [-100.000,100.000,2.000]
-/auxin/[01..08]/mix/05/type enum {<-EQ,EQ->,PRE,POST,GRP}
+/auxin/[01..08]/mix/05/type enum {INPUT,<-EQ,EQ->,PRE,POST,GRP}
 /auxin/[01..08]/mix/07/pan linf [-100.000,100.000,2.000]
-/auxin/[01..08]/mix/07/type enum {<-EQ,EQ->,PRE,POST,GRP}
+/auxin/[01..08]/mix/07/type enum {INPUT,<-EQ,EQ->,PRE,POST,GRP}
 /auxin/[01..08]/mix/09/pan linf [-100.000,100.000,2.000]
-/auxin/[01..08]/mix/09/type enum {<-EQ,EQ->,PRE,POST,GRP}
+/auxin/[01..08]/mix/09/type enum {INPUT,<-EQ,EQ->,PRE,POST,GRP}
 /auxin/[01..08]/mix/11/pan linf [-100.000,100.000,2.000]
-/auxin/[01..08]/mix/11/type enum {<-EQ,EQ->,PRE,POST,GRP}
+/auxin/[01..08]/mix/11/type enum {INPUT,<-EQ,EQ->,PRE,POST,GRP}
 /auxin/[01..08]/mix/13/pan linf [-100.000,100.000,2.000]
-/auxin/[01..08]/mix/13/type enum {<-EQ,EQ->,PRE,POST,GRP}
+/auxin/[01..08]/mix/13/type enum {INPUT,<-EQ,EQ->,PRE,POST,GRP}
 /auxin/[01..08]/mix/15/pan linf [-100.000,100.000,2.000]
-/auxin/[01..08]/mix/15/type enum {<-EQ,EQ->,PRE,POST,GRP}
+/auxin/[01..08]/mix/15/type enum {INPUT,<-EQ,EQ->,PRE,POST,GRP}
 /auxin/[01..08]/grp/dca int [0,255] (bitmap)
 /auxin/[01..08]/grp/mute int [0,63] (bitmap)
+"""
+def fxreturns(): return """--------- config data ---------
 --------- fxrtn [01..08] (channel id 40..47) ---------
 /fxrtn/[01..08]/config/name string [12]
 /fxrtn/[01..08]/config/icon int [1,74]
@@ -296,23 +304,25 @@ FX8R,AUX1,AUX2,AUX3,AUX4,AUX5,AUX6}
 /fxrtn/[01..08]/mix/mlevel level [0.0...1.0 (+10 dB), 161] dB
 /fxrtn/[01..08]/mix/[01..16]/on enum {OFF,ON}
 /fxrtn/[01..08]/mix/[01..16]/level level [0.0...1.0 (+10 dB), 161] dB/fxrtn/[01..08]/mix/01/pan linf [-100.000,100.000,2.000]
-/fxrtn/[01..08]/mix/01/type enum {<-EQ,EQ->,PRE,POST,GRP}
+/fxrtn/[01..08]/mix/01/type enum {INPUT,<-EQ,EQ->,PRE,POST,GRP}
 /fxrtn/[01..08]/mix/03/pan linf [-100.000,100.000,2.000]
-/fxrtn/[01..08]/mix/03/type enum {<-EQ,EQ->,PRE,POST,GRP}
+/fxrtn/[01..08]/mix/03/type enum {INPUT,<-EQ,EQ->,PRE,POST,GRP}
 /fxrtn/[01..08]/mix/05/pan linf [-100.000,100.000,2.000]
-/fxrtn/[01..08]/mix/05/type enum {<-EQ,EQ->,PRE,POST,GRP}
+/fxrtn/[01..08]/mix/05/type enum {INPUT,<-EQ,EQ->,PRE,POST,GRP}
 /fxrtn/[01..08]/mix/07/pan linf [-100.000,100.000,2.000]
-/fxrtn/[01..08]/mix/07/type enum {<-EQ,EQ->,PRE,POST,GRP}
+/fxrtn/[01..08]/mix/07/type enum {INPUT,<-EQ,EQ->,PRE,POST,GRP}
 /fxrtn/[01..08]/mix/09/pan linf [-100.000,100.000,2.000]
-/fxrtn/[01..08]/mix/09/type enum {<-EQ,EQ->,PRE,POST,GRP}
+/fxrtn/[01..08]/mix/09/type enum {INPUT,<-EQ,EQ->,PRE,POST,GRP}
 /fxrtn/[01..08]/mix/11/pan linf [-100.000,100.000,2.000]
-/fxrtn/[01..08]/mix/11/type enum {<-EQ,EQ->,PRE,POST,GRP}
+/fxrtn/[01..08]/mix/11/type enum {INPUT,<-EQ,EQ->,PRE,POST,GRP}
 /fxrtn/[01..08]/mix/13/pan linf [-100.000,100.000,2.000]
-/fxrtn/[01..08]/mix/13/type enum {<-EQ,EQ->,PRE,POST,GRP}
+/fxrtn/[01..08]/mix/13/type enum {INPUT,<-EQ,EQ->,PRE,POST,GRP}
 /fxrtn/[01..08]/mix/15/pan linf [-100.000,100.000,2.000]
-/fxrtn/[01..08]/mix/15/type enum {<-EQ,EQ->,PRE,POST,GRP}
+/fxrtn/[01..08]/mix/15/type enum {INPUT,<-EQ,EQ->,PRE,POST,GRP}
 /fxrtn/[01..08]/grp/dca int [0,255] (bitmap)
 /fxrtn/[01..08]/grp/mute int [0,63] (bitmap)
+"""
+def busses(): return  """--------- config data ---------
 --------- bus [01..16] (channel id 48..63) ---------
 /bus/[01..16]/config/name string [12]
 /bus/[01..16]/config/icon int [1,74]
@@ -335,9 +345,7 @@ FX8R,AUX1,AUX2,AUX3,AUX4,AUX5,AUX6}
 /bus/[01..16]/dyn/filter/f logf [20.000,20000,201] Hz
 /bus/[01..16]/insert/on enum {OFF,ON}
 /bus/[01..16]/insert/pos enum {PRE,POST}
-/bus/[01..16]/insert/sel enum {OFF,FX1L,FX1R,FX2L,FX2R,FX3L,FX3R,FX4L,
-FX4R,FX5L,FX5R,FX6L,FX6R,FX7L,FX7R,FX8L,
-FX8R,AUX1,AUX2,AUX3,AUX4,AUX5,AUX6}
+/bus/[01..16]/insert/sel enum {OFF,FX1L,FX1R,FX2L,FX2R,FX3L,FX3R,FX4L,FX4R,FX5L,FX5R,FX6L,FX6R,FX7L,FX7R,FX8L,FX8R,AUX1,AUX2,AUX3,AUX4,AUX5,AUX6}
 /bus/[01..16]/eq/on enum {OFF,ON}
 /bus/[01..16]/eq/[1..6]/type enum {LCut,LShv,PEQ,VEQ,HShv,HCut}
 /bus/[01..16]/eq/[1..6]/f logf [20.000,20000,201] Hz/bus/[01..16]/eq/[1..6]/g linf [-15.000,15.000,0.250] dB
@@ -351,10 +359,15 @@ FX8R,AUX1,AUX2,AUX3,AUX4,AUX5,AUX6}
 /bus/[01..16]/mix/[01..06]/on enum {OFF,ON}
 /bus/[01..16]/mix/[01..06]/level level [0.0...1.0 (+10 dB), 161] dB
 /bus/[01..16]/mix/01/pan linf [-100.000,100.000,2.000]
+/bus/[01..16]/mix/01/type enum {INP,<-EQ,EQ->,PRE,POST}
 /bus/[01..16]/mix/03/pan linf [-100.000,100.000,2.000]
+/bus/[01..16]/mix/03/type enum {INP,<-EQ,EQ->,PRE,POST}
 /bus/[01..16]/mix/05/pan linf [-100.000,100.000,2.000]
+/bus/[01..16]/mix/05/type enum {INP,<-EQ,EQ->,PRE,POST}
 /bus/[01..16]/grp/dca int [0,255] (bitmap)
 /bus/[01..16]/grp/mute int [0,63] (bitmap)
+"""
+def matrixes(): return """--------- config data ---------
 --------- mtx [01..06] (channel id 64..69) ---------
 /mtx/[01..06]/config/name string [12]
 /mtx/[01..06]/config/icon int [1,74]
@@ -376,9 +389,7 @@ FX8R,AUX1,AUX2,AUX3,AUX4,AUX5,AUX6}
 /mtx/[01..06]/dyn/filter/f logf [20.000,20000,201] Hz
 /mtx/[01..06]/insert/on enum {OFF,ON}
 /mtx/[01..06]/insert/pos enum {PRE,POST}
-/mtx/[01..06]/insert/sel enum {OFF,FX1L,FX1R,FX2L,FX2R,FX3L,FX3R,FX4L,
-FX4R,FX5L,FX5R,FX6L,FX6R,FX7L,FX7R,FX8L,
-FX8R,AUX1,AUX2,AUX3,AUX4,AUX5,AUX6}
+/mtx/[01..06]/insert/sel enum {OFF,FX1L,FX1R,FX2L,FX2R,FX3L,FX3R,FX4L,FX4R,FX5L,FX5R,FX6L,FX6R,FX7L,FX7R,FX8L,FX8R,AUX1,AUX2,AUX3,AUX4,AUX5,AUX6}
 /mtx/[01..06]/eq/on enum {OFF,ON}
 /mtx/[01..06]/eq/[1..6]/type enum {LCut,LShv,PEQ,VEQ,HShv,HCut}
 /mtx/[01..06]/eq/[1..6]/f logf [20.000,20000,201] Hz
@@ -386,6 +397,8 @@ FX8R,AUX1,AUX2,AUX3,AUX4,AUX5,AUX6}
 /mtx/[01..06]/eq/[1..6]/q logf [10.000,0.300,72]
 /mtx/[01..06]/mix/on enum {OFF,ON}
 /mtx/[01..06]/mix/fader level [0.0...1.0 (+10 dB), 1024] dB--------- main stereo (channel id 70) ---------
+"""
+def mains(): return  """--------- config data ---------
 /main/st/config/name string [12]
 /main/st/config/icon int [1,74]
 /main/st/config/color enum {OFF,RD,GN,YE,BL,MG,CY,WH}
@@ -406,9 +419,7 @@ FX8R,AUX1,AUX2,AUX3,AUX4,AUX5,AUX6}
 /main/st/dyn/filter/f logf [20.000,20000,201] Hz
 /main/st/insert/on enum {OFF,ON}
 /main/st/insert/pos enum {PRE,POST}
-/main/st/insert/sel enum {OFF,FX1L,FX1R,FX2L,FX2R,FX3L,FX3R,FX4L,
-FX4R,FX5L,FX5R,FX6L,FX6R,FX7L,FX7R,FX8L,
-FX8R,AUX1,AUX2,AUX3,AUX4,AUX5,AUX6}
+/main/st/insert/sel enum {OFF,FX1L,FX1R,FX2L,FX2R,FX3L,FX3R,FX4L,FX4R,FX5L,FX5R,FX6L,FX6R,FX7L,FX7R,FX8L,FX8R,AUX1,AUX2,AUX3,AUX4,AUX5,AUX6}
 /main/st/eq/on enum {OFF,ON}
 /main/st/eq/[1..6]/type enum {LCut,LShv,PEQ,VEQ,HShv,HCut}
 /main/st/eq/[1..6]/f logf [20.000,20000,201] Hz
@@ -420,8 +431,11 @@ FX8R,AUX1,AUX2,AUX3,AUX4,AUX5,AUX6}
 /main/st/mix/[01..06]/on enum {OFF,ON}
 /main/st/mix/[01..06]/level level [0.0...1.0 (+10 dB), 161] dB
 /main/st/mix/01/pan linf [-100.000,100.000,2.000]
+/main/st/mix/01/type enum {INP,<-EQ,EQ->,PRE,POST}
 /main/st/mix/03/pan linf [-100.000,100.000,2.000]
+/main/st/mix/03/type enum {INP,<-EQ,EQ->,PRE,POST}
 /main/st/mix/05/pan linf [-100.000,100.000,2.000]
+/main/st/mix/05/type enum {INP,<-EQ,EQ->,PRE,POST}
 --------- main mono (channel id 71) ---------
 /main/m/config/name string [12]
 /main/m/config/icon int [1,74]
@@ -442,9 +456,7 @@ FX8R,AUX1,AUX2,AUX3,AUX4,AUX5,AUX6}
 /main/m/dyn/filter/f logf [20.000,20000,201] Hz
 /main/m/insert/on enum {OFF,ON}
 /main/m/insert/pos enum {PRE,POST}
-/main/m/insert/sel enum {OFF,FX1L,FX1R,FX2L,FX2R,FX3L,FX3R,FX4L,
-FX4R,FX5L,FX5R,FX6L,FX6R,FX7L,FX7R,FX8L,
-FX8R,AUX1,AUX2,AUX3,AUX4,AUX5,AUX6}
+/main/m/insert/sel enum {OFF,FX1L,FX1R,FX2L,FX2R,FX3L,FX3R,FX4L,FX4R,FX5L,FX5R,FX6L,FX6R,FX7L,FX7R,FX8L,FX8R,AUX1,AUX2,AUX3,AUX4,AUX5,AUX6}
 /main/m/eq/on enum {OFF,ON}
 /main/m/eq/[1..6]/type enum {LCut,LShv,PEQ,VEQ,HShv,HCut}
 /main/m/eq/[1..6]/f logf [20.000,20000,201] Hz
@@ -455,57 +467,64 @@ FX8R,AUX1,AUX2,AUX3,AUX4,AUX5,AUX6}
 /main/m/mix/[01..06]/on enum {OFF,ON}
 /main/m/mix/[01..06]/level level [0.0...1.0 (+10 dB), 161] dB
 /main/m/mix/01/pan linf [-100.000,100.000,2.000]
+/main/m/mix/01/type enum {INP,<-EQ,EQ->,PRE,POST}
 /main/m/mix/03/pan linf [-100.000,100.000,2.000]
+/main/m/mix/03/type enum {INP,<-EQ,EQ->,PRE,POST}
 /main/m/mix/05/pan linf [-100.000,100.000,2.000]
+/main/m/mix/05/type enum {INP,<-EQ,EQ->,PRE,POST}
 --------- dca groups (no channel id!) ---------
 /dca/[1..8]/on enum {OFF,ON}
 /dca/[1..8]/fader level [0.0...1.0 (+10 dB), 1024] dB
 /dca/[1..8]/config/name string [12]
 /dca/[1..8]/config/icon int [1,74]
 /dca/[1..8]/config/color enum {OFF,RD,GN,YE,BL,MG,CY,WH}
+"""
+def fx(): return """--------- config data ---------
 --------- effects fx [1..4] ---------
-/fx/[1..4]/type enum {HALL,PLAT,VREV,VRM,AMBI,GATE,RVRS,DL
-Y,3TAP,CRS,FLNG,PHAS,FILT,ROTA,PAN,D/R
-V,CR/R,FL/R,D/CR,D/FL,GEQ2,GEQ,TEQ2,TE
-Q,WAVD,LIM,ENH2,ENH,EXC2,EXC,IMG,AM
-P2,AMP,DRV2,DRV,PIT2,PIT}
-/fx/[1..4]/source/l enum {INS,MIX1,MIX2,MIX3,MIX4,MIX5,MIX6,MIX
-7,MIX8,MIX9,MIX10,MIX11,MIX12,MIX13,
-MIX14,MIX15,MIX16}
-/fx/[1..4]/source/r enum {INS,MIX1,MIX2,MIX3,MIX4,MIX5,MIX6,MIX
-7,MIX8,MIX9,MIX10,MIX11,MIX12,MIX13,
-MIX14,MIX15,MIX16}/fx/[1..4]/par/[01..64] linf/logf (depending on selected effect type)
+/fx/[1..4]/type enum {HALL,PLAT,VREV,VRM,AMBI,GATE,RVRS,DLY,3TAP,CRS,FLNG,PHAS,FILT,ROTA,PAN,D/RV,CR/R,FL/R,D/CR,D/FL,GEQ2,GEQ,TEQ2,TEQ,WAVD,LIM,ENH2,ENH,EXC2,EXC,IMG,AMP2,AMP,DRV2,DRV,PIT2,PIT}
+/fx/[1..4]/source/l enum {INS,MIX1,MIX2,MIX3,MIX4,MIX5,MIX6,MIX7,MIX8,MIX9,MIX10,MIX11,MIX12,MIX13,MIX14,MIX15,MIX16}
+/fx/[1..4]/source/r enum {INS,MIX1,MIX2,MIX3,MIX4,MIX5,MIX6,MIX7,MIX8,MIX9,MIX10,MIX11,MIX12,MIX13,MIX14,MIX15,MIX16}/fx/[1..4]/par/[01..64] linf/logf (depending on selected effect type)
+/fx/[1..4]/par/[01..64] linf/logf (depending on selected effect type)
 --------- effects fx [5..8] ---------
-/fx/[5..8]/type enum {GEQ2,GEQ,TEQ2,TEQ,WAVD,LIM,ENH2,EN
-H,EXC2,EXC,IMG,AMP2,AMP,DRV2,DRV,PH
-AS,FILT,PAN}
+/fx/[5..8]/type enum {GEQ2,GEQ,TEQ2,TEQ,WAVD,LIM,ENH2,ENH,EXC2,EXC,IMG,AMP2,AMP,DRV2,DRV,PHAS,FILT,PAN}
 /fx/[5..8]/par/[01..64] linf/logf (depending on selected effect type)
---------- outputs main [01..16] ---------
-/outputs/main/[01..16]/src int [0,76]
-/outputs/main/[01..16]/pos enum {<-EQ,EQ->,PRE,POST}
-/outputs/main/[01..16]/delay/on enum {OFF,ON}
-/outputs/main/[01..16]/delay/time
-e
-linf [0.300,500.000,0.100] ms
---------- outputs aux [01..06] ---------
-/outputs/aux/[01..06]/src int [0,76]
-/outputs/aux/[01..06]/pos enum {<-EQ,EQ->,PRE,POST}
---------- outputs P16 [01..16] ---------
-/outputs/p16/[01..16]/src int [0,76]
-/outputs/p16/[01..16]/pos enum {<-EQ,EQ->,PRE,POST}
---------- outputs AES [01..02] ---------
-/outputs/aes/[01..02]/src int [0,76]
-/outputs/aes/[01..02]/pos enum {<-EQ,EQ->,PRE,POST}
---------- outputs REC [01..02] ---------
-/outputs/rec/[01..02]/src int [0,76]
-/outputs/rec/[01..02]/pos enum {<-EQ,EQ->,PRE,POST}
---------- headamps [000..127] ---------
-/headamp/[000..127]/gain linf [-12.000,60.000,0.500] dB
-/headamp/[000..127]/phantom enum {OFF,ON}
-000..031: local XLR inputs
-032..079: AES50 port A connected devices
-080..127: AES50 port B connected devices
-
+"""
+def prefs(): return """--------- config data ---------
+/-prefs/autosel enum {OFF, ON}
+/-prefs/dcamute enum {OFF, ON}
+/-prefs/haflags
+/-prefs/hardmute enum {OFF, ON}
+/-prefs/invertmutes enum {OFF, ON}
+## best not to download and restore these... bad things could happen.
+#/-prefs/ip/dhcp enum {OFF, ON}
+#/-prefs/ip/addr/[0..3]
+#/-prefs/ip/mask/[0..3]
+#/-prefs/ip/gateway/[0..3]
+/-prefs/iQ/[01..16]/iQmodel enum{none, iQ8, iQ10, iQ12, iQ15, iQ15B, iQ18B}
+/-prefs/lamp
+/-prefs/lampon enum {OFF, ON}
+/-prefs/lcdbright
+/-prefs/lcdcont
+/-prefs/remote/enable enum {OFF, ON}
+/-prefs/remote/ioenable
+/-prefs/remote/port
+/-prefs/remote/protocol
+/-prefs/rta/autogain enum {OFF, ON}
+/-prefs/rta/decay
+/-prefs/rta/det
+/-prefs/rta/gain
+/-prefs/rta/mode
+/-prefs/rta/option
+/-prefs/rta/peakhold
+/-prefs/rta/pos
+/-prefs/rta/source
+/-prefs/rta/visibility
+/-prefs/safe_masterlevels enum {OFF, ON}
+/-prefs/sceneadvance enum {OFF, ON}
+/-prefs/selfollowsbank enum {OFF, ON}
+/-prefs/show_control enum{CUES, SCENES, SNIPPETS}
+/-prefs/style
+/-prefs/viewrtn enum {OFF, ON}
 /-prefs/confirm_general [0]
 /-prefs/confirm_overwrite [0]
 /-prefs/confirm_sceneload [0]
@@ -519,7 +538,7 @@ linf [0.300,500.000,0.100] ms
 /-stat/lock [1]
 """
 
-def get_settings():
+def get_settings(config_text = chanlink() + globals() + routing() + userbuttons() + channels() + auxes() + fxreturns() + busses() + matrixes() + mains() + fx() + prefs()):
     """This will generate a list with osc-paths to all settings from
     settings_from_doc
     All [01..32] etc will be expanded.
@@ -527,7 +546,7 @@ def get_settings():
     This is all settings that need to be set for audiopath of control to be set to known state.
     """
     setting_lines = []
-    for line in settings_from_doc.splitlines():
+    for line in config_text.splitlines():
         if line.startswith("/"):
             setting_lines.append(line.split()[0])
     settings = []
